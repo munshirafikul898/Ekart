@@ -86,15 +86,15 @@ function Cart() {
                         {cart.items.map((item) => (
                             <div
                                 key={item._id}
-                                className="bg-white rounded-xl shadow-sm p-4 flex flex-col sm:flex-row gap-4 relative"
+                                className="bg-white rounded-xl shadow-sm p-4 flex flex-row gap-4 relative"
                             >
                                 <img
                                     src={item?.productId?.productImg?.[0]?.url}
                                     alt=""
-                                    className="w-24 h-24 sm:w-32 sm:h-32 object-contain bg-white rounded-lg border p-2"
+                                    className="w-24 h-24 object-contain bg-white rounded-lg border p-2 flex-shrink-0"
                                 />
 
-                                <div className="flex-1">
+                               <div className="flex-1 min-w-0">
 
                                     <h2 className="text-xs font-medium text-gray-800 leading-5 w-full">
                                         {item?.productId?.productName}
