@@ -4,8 +4,9 @@ import { Button } from "../components/ui/button";
 import axios from "axios";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../redux/userSlice";
 import { useState } from "react";
+import { setUser } from "../redux/userSlice";
+import { setCart } from "../redux/productSlice";
 
 function Navbar() {
     const { user } = useSelector(store => store.user);
@@ -33,6 +34,13 @@ function Navbar() {
                 localStorage.removeItem("accessToken");
 
                 dispatch(setUser(null));
+
+                dispatch(
+                    setCart({
+                        items: [],
+                        totalPrice: 0,
+                    })
+                );
 
                 toast.success(res.data.message);
 

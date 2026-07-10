@@ -68,8 +68,17 @@ function Cart() {
     }
 
     useEffect(() => {
-        loadCart();
-    }, [dispatch]);
+        if (accessToken) {
+            loadCart();
+        } else {
+            dispatch(
+                setCart({
+                    items: [],
+                    totalPrice: 0,
+                })
+            );
+        }
+    }, [accessToken, dispatch]);
 
     return (
         <div className="min-h-screen bg-pink-50 p-4">
