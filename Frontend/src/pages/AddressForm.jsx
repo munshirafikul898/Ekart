@@ -374,7 +374,7 @@ function AddressForm() {
 
                 <div className="lg:col-span-1">
 
-                    <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 fixed">
+                    <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 w-full lg:sticky lg:top-24">
 
                         <div className="mb-5">
                             <h2 className="text-xl font-bold text-gray-800">
