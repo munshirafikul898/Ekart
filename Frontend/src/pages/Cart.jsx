@@ -97,14 +97,14 @@ function Cart() {
                                 key={item._id}
                                 className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6"
                             >
-                                <div className="flex gap-6 items-start">
+                                <div className="flex gap-8 items-start">
 
-                                    <div className="w-28 sm:w-32 lg:w-52">
+                                    <div className="w-40 lg:w-52 flex-shrink-0">
 
                                         <img
                                             src={item?.productId?.productImg?.[0]?.url}
                                             alt=""
-                                            className="w-24 h-24 sm:w-32 sm:h-32 lg:w-48 lg:h-48 object-contain bg-white rounded-xl border p-3"
+                                            className="w-32 h-32 lg:w-44 lg:h-44 object-contain bg-white rounded-xl border p-3"
                                         />
                                         <div className="lg:hidden">
 
@@ -151,7 +151,6 @@ function Cart() {
                                                 </h2>
 
 
-                                                {/* Desktop Price + Quantity + Remove */}
                                                 <div className="hidden lg:block mt-8">
 
                                                     <p className="text-pink-600 font-bold text-lg">
