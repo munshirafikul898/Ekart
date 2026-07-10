@@ -99,14 +99,13 @@ function Cart() {
                             >
                                 <div className="flex gap-6 items-start">
 
-                                    <div className="flex flex-col items-center w-28 sm:w-32 lg:w-40">
+                                    <div className="w-28 sm:w-32 lg:w-52">
 
                                         <img
                                             src={item?.productId?.productImg?.[0]?.url}
                                             alt=""
-                                            className="w-24 h-24 sm:w-32 sm:h-32 lg:w-36 lg:h-36 object-contain bg-white rounded-xl border p-3"
+                                            className="w-24 h-24 sm:w-32 sm:h-32 lg:w-48 lg:h-48 object-contain bg-white rounded-xl border p-3"
                                         />
-
                                         <div className="lg:hidden">
 
                                             <p className="text-pink-600 font-bold text-sm mt-2">
@@ -145,40 +144,53 @@ function Cart() {
                                         </div>
 
                                         <div className="hidden lg:block mt-5">
+                                            <div className="flex-1 flex flex-col min-h-[150px]">
 
-                                            <p className="text-pink-600 font-bold text-lg">
-                                                ₹{item?.price * item?.quantity}
-                                            </p>
+                                                <h2 className="text-sm lg:text-xl font-semibold text-gray-800 leading-relaxed">
+                                                    {item?.productId?.productName}
+                                                </h2>
 
-                                            <div className="flex items-center gap-3 mt-3">
 
-                                                <button
-                                                    onClick={() => handleUpdateQuantity(item.productId._id, "decrease")}
-                                                    className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-pink-500 font-bold"
-                                                >
-                                                    -
-                                                </button>
+                                                {/* Desktop Price + Quantity + Remove */}
+                                                <div className="hidden lg:block mt-8">
 
-                                                <span className="font-semibold">
-                                                    {item.quantity}
-                                                </span>
+                                                    <p className="text-pink-600 font-bold text-lg">
+                                                        ₹{item?.price * item?.quantity}
+                                                    </p>
 
-                                                <button
-                                                    onClick={() => handleUpdateQuantity(item.productId._id, "increase")}
-                                                    className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-pink-500 font-bold"
-                                                >
-                                                    +
-                                                </button>
+                                                    <div className="flex items-center gap-3 mt-3">
+
+                                                        <button
+                                                            onClick={() => handleUpdateQuantity(item.productId._id, "decrease")}
+                                                            className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-pink-500 font-bold"
+                                                        >
+                                                            -
+                                                        </button>
+
+                                                        <span className="font-semibold">
+                                                            {item.quantity}
+                                                        </span>
+
+                                                        <button
+                                                            onClick={() => handleUpdateQuantity(item.productId._id, "increase")}
+                                                            className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-pink-500 font-bold"
+                                                        >
+                                                            +
+                                                        </button>
+
+                                                    </div>
+
+
+                                                    <button
+                                                        onClick={() => handleRemove(item.productId._id)}
+                                                        className="mt-4 bg-pink-500 hover:bg-pink-600 text-white px-5 py-2 rounded-lg text-sm"
+                                                    >
+                                                        Remove
+                                                    </button>
+
+                                                </div>
 
                                             </div>
-
-                                            <button
-                                                onClick={() => handleRemove(item.productId._id)}
-                                                className="mt-4 bg-pink-500 hover:bg-pink-600 text-white px-5 py-2 rounded-lg text-sm"
-                                            >
-                                                Remove
-                                            </button>
-
                                         </div>
 
                                     </div>
