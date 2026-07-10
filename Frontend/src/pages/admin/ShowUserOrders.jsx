@@ -15,7 +15,7 @@ function ShowUserOrders() {
     const getUserOrders = async () => {
         try {
             const res = await axios.get(
-                `http://localhost:8000/api/v1/orders/user-order/${userId}`,
+                `https://ekart-9pu9.onrender.com/api/v1/orders/user-order/${userId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,

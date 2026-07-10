@@ -18,7 +18,7 @@ function Cart() {
 
     const handleUpdateQuantity= async (productId,type)=>{
         try {
-            const res=await axios.put("http://localhost:8000/api/v1/cart/update",{productId,type},{
+            const res=await axios.put("https://ekart-9pu9.onrender.com/api/v1/cart/update",{productId,type},{
                 headers:{
                     Authorization: `Bearer ${accessToken}`
                 }
@@ -34,7 +34,7 @@ function Cart() {
 
     const handleRemove= async (productId)=>{
         try {
-            const res=await axios.delete("http://localhost:8000/api/v1/cart/remove",{
+            const res=await axios.delete("https://ekart-9pu9.onrender.com/api/v1/cart/remove",{
 
                 headers:{
                     Authorization: `Bearer ${accessToken}`
@@ -53,7 +53,7 @@ function Cart() {
 
     const loadCart=async ()=>{
         try {
-            const res=await axios.get("http://localhost:8000/api/v1/cart",{
+            const res=await axios.get("https://ekart-9pu9.onrender.com/api/v1/cart",{
                 headers:{
                     Authorization: `Bearer ${accessToken}`
                 }

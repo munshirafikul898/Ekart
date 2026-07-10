@@ -114,7 +114,7 @@ function AdminProduct() {
 
         try {
             const res = await axios.put(
-                `http://localhost:8000/api/v1/product/update/${editProduct._id}`,
+                `https://ekart-9pu9.onrender.com/api/v1/product/update/${editProduct._id}`,
                 formData,
                 {
                     headers: {
@@ -153,7 +153,7 @@ function AdminProduct() {
     const deleteProductHandler = async (productId) => {
         try {
             const remainingProducts = products.filter(product => product._id !== productId);
-            const res = await axios.delete(`http://localhost:8000/api/v1/product/delete/${productId}`, {
+            const res = await axios.delete(`https://ekart-9pu9.onrender.com/api/v1/product/delete/${productId}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }

@@ -11,7 +11,7 @@ function MyOrder() {
     const getUserOrder = async () => {
         try {
             const res = await axios.get(
-                "http://localhost:8000/api/v1/orders/my-orders",
+                "https://ekart-9pu9.onrender.com/api/v1/orders/my-orders",
                 {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,

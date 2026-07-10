@@ -11,7 +11,7 @@ function AdminOrders() {
     const getAllOrders = async () => {
         try {
             const res = await axios.get(
-                "http://localhost:8000/api/v1/orders/all",
+                "https://ekart-9pu9.onrender.com/api/v1/orders/all",
                 {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,

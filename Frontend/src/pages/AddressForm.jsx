@@ -107,7 +107,7 @@ function AddressForm() {
 
         setLoading(true);
         try {
-            const { data } = await axios.post("http://localhost:8000/api/v1/orders/create-order", {
+            const { data } = await axios.post("https://ekart-9pu9.onrender.com/api/v1/orders/create-order", {
                 products: cart?.items?.map(item => ({
                     productId: item.productId._id,
                     quantity: item.quantity
@@ -133,7 +133,7 @@ function AddressForm() {
                 description: "Order payment",
                 handler: async function (response) {
                     try {
-                        const verifyRes = await axios.post("http://localhost:8000/api/v1/orders/verify-payment", response, {
+                        const verifyRes = await axios.post("https://ekart-9pu9.onrender.com/api/v1/orders/verify-payment", response, {
                             headers: {
                                 Authorization: `Bearer ${accessToken}`
                             }
@@ -151,7 +151,7 @@ function AddressForm() {
                 },
                 modal: {
                     ondismiss: async function () {
-                        await axios.post("http://localhost:8000/api/v1/orders/verify-payment", {
+                        await axios.post("https://ekart-9pu9.onrender.com/api/v1/orders/verify-payment", {
                             razorpay_order_id: data.order.id,
                             paymentFailed: true
                         }, {
@@ -171,7 +171,7 @@ function AddressForm() {
             };
             const rzp = new window.Razorpay(options);
             rzp.on('payment.failed', async function (response) {
-                await axios.post("http://localhost:8000/api/v1/orders/verify-payment", {
+                await axios.post("https://ekart-9pu9.onrender.com/api/v1/orders/verify-payment", {
                     razorpay_order_id: data.order.id,
                     paymentFailed: true
                 }, {

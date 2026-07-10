@@ -7,7 +7,6 @@ function ProductImg({ images }) {
     return (
         <div className="w-full flex flex-col gap-4">
 
-            {/* Main Image */}
             <div className="bg-white border rounded-2xl shadow-sm h-[280px] sm:h-[400px] lg:h-[500px] flex items-center justify-center overflow-hidden">
 
                 <TransformWrapper
@@ -30,7 +29,6 @@ function ProductImg({ images }) {
 
             </div>
 
-            {/* Thumbnails */}
             <div className="flex flex-wrap justify-center sm:justify-start gap-2 sm:gap-3">
 
                 {images?.map((img, index) => (

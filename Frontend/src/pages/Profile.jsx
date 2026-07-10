@@ -56,7 +56,7 @@ export function Profile() {
             if (file) {
                 formData.append('file', file);
             }
-            const res = await axios.put(`http://localhost:8000/api/v1/user/update/${userId}`, formData, {
+            const res = await axios.put(`https://ekart-9pu9.onrender.com/api/v1/user/update/${userId}`, formData, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                     "Content-Type": "multipart/form-data"

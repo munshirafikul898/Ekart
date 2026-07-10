@@ -29,7 +29,7 @@ function Product() {
     const getAllProduct = async () => {
         try {
             const res = await axios.get(
-                "http://localhost:8000/api/v1/product/getallproducts"
+                "https://ekart-9pu9.onrender.com/api/v1/product/getallproducts"
             );
 
             if (res.data.success) {

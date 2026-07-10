@@ -46,7 +46,7 @@ function Login() {
             setLoading(true);
 
             const res = await axios.post(
-                "http://localhost:8000/api/v1/user/login",
+                "https://ekart-9pu9.onrender.com/api/v1/user/login",
                 formData,
                 {
                     headers: {
@@ -64,7 +64,7 @@ function Login() {
                 dispatch(setUser(res.data.user));
 
                 const cartRes = await axios.get(
-                    "http://localhost:8000/api/v1/cart",
+                    "https://ekart-9pu9.onrender.com/api/v1/cart",
                     {
                         headers: {
                             Authorization: `Bearer ${res.data.accessToken}`,

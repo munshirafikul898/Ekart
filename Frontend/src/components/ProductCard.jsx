@@ -14,7 +14,7 @@ function ProductCard({ product }) {
 
     const addToCart=async (productId)=>{
         try {
-            const res=await axios.post("http://localhost:8000/api/v1/cart/add",{productId},{
+            const res=await axios.post("https://ekart-9pu9.onrender.com/api/v1/cart/add",{productId},{
                 headers:{
                     Authorization: `Bearer ${accessToken}`
                 }

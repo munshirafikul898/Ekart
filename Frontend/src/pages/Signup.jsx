@@ -44,7 +44,7 @@ function Signup() {
             setLoading(true);
 
             const res = await axios.post(
-                "http://localhost:8000/api/v1/user/register",
+                "https://ekart-9pu9.onrender.com/api/v1/user/register",
                 formData,
                 {
                     headers: {
