@@ -89,114 +89,62 @@ function Cart() {
 
             {cart?.items?.length > 0 ? (
 
-                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
-                    <div className="lg:col-span-8 space-y-5">
+                <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <div className="md:col-span-2 space-y-4">
 
                         {cart.items.map((item) => (
                             <div
                                 key={item._id}
-                                className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6"
+                                className="bg-white rounded-xl shadow-sm p-4"
                             >
-                                <div className="flex gap-8 items-start">
+                                <div className="flex gap-4">
 
-                                    <div className="w-40 lg:w-52 flex-shrink-0">
+                                    <div className="flex flex-col items-center w-28 sm:w-32">
 
                                         <img
                                             src={item?.productId?.productImg?.[0]?.url}
                                             alt=""
-                                            className="w-32 h-32 lg:w-44 lg:h-44 object-contain bg-white rounded-xl border p-3"
+                                            className="w-24 h-24 sm:w-32 sm:h-32 object-contain bg-white rounded-lg border p-2"
                                         />
-                                        <div className="lg:hidden">
 
-                                            <p className="text-pink-600 font-bold text-sm mt-2">
-                                                ₹{item?.price * item?.quantity}
-                                            </p>
+                                        <p className="text-pink-600 font-bold text-sm mt-2">
+                                            ₹{item?.price * item?.quantity}
+                                        </p>
 
-                                            <div className="flex items-center gap-2 mt-2">
-
-                                                <button
-                                                    onClick={() => handleUpdateQuantity(item.productId._id, "decrease")}
-                                                    className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-100 text-pink-500 font-bold"
-                                                >
-                                                    -
-                                                </button>
-
-                                                <span className="text-sm font-semibold">
-                                                    {item.quantity}
-                                                </span>
-
-                                                <button
-                                                    onClick={() => handleUpdateQuantity(item.productId._id, "increase")}
-                                                    className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-100 text-pink-500 font-bold"
-                                                >
-                                                    +
-                                                </button>
-
-                                            </div>
+                                        <div className="flex items-center gap-2 mt-2">
 
                                             <button
-                                                onClick={() => handleRemove(item.productId._id)}
-                                                className="mt-2 bg-pink-500 hover:bg-pink-600 text-white px-3 py-1.5 rounded-md text-xs"
+                                                onClick={() => handleUpdateQuantity(item.productId._id, "decrease")}
+                                                className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-100 text-pink-500 font-bold"
                                             >
-                                                Remove
+                                                -
+                                            </button>
+
+                                            <span className="text-sm font-semibold">
+                                                {item.quantity}
+                                            </span>
+
+                                            <button
+                                                onClick={() => handleUpdateQuantity(item.productId._id, "increase")}
+                                                className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-100 text-pink-500 font-bold"
+                                            >
+                                                +
                                             </button>
 
                                         </div>
 
-                                        <div className="hidden lg:block mt-5">
-                                            <div className="flex-1 flex flex-col min-h-[150px]">
-
-                                                {/* <h2 className="text-sm lg:text-xl font-semibold text-gray-800 leading-relaxed">
-                                                    {item?.productId?.productName}
-                                                </h2> */}
-
-
-                                                <div className="hidden lg:block mt-8">
-
-                                                    <p className="text-pink-600 font-bold text-lg">
-                                                        ₹{item?.price * item?.quantity}
-                                                    </p>
-
-                                                    <div className="flex items-center gap-3 mt-3">
-
-                                                        <button
-                                                            onClick={() => handleUpdateQuantity(item.productId._id, "decrease")}
-                                                            className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-pink-500 font-bold"
-                                                        >
-                                                            -
-                                                        </button>
-
-                                                        <span className="font-semibold">
-                                                            {item.quantity}
-                                                        </span>
-
-                                                        <button
-                                                            onClick={() => handleUpdateQuantity(item.productId._id, "increase")}
-                                                            className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-pink-500 font-bold"
-                                                        >
-                                                            +
-                                                        </button>
-
-                                                    </div>
-
-
-                                                    <button
-                                                        onClick={() => handleRemove(item.productId._id)}
-                                                        className="mt-4 bg-pink-500 hover:bg-pink-600 text-white px-5 py-2 rounded-lg text-sm"
-                                                    >
-                                                        Remove
-                                                    </button>
-
-                                                </div>
-
-                                            </div>
-                                        </div>
+                                        <button
+                                            onClick={() => handleRemove(item.productId._id)}
+                                            className="mt-2 bg-pink-500 hover:bg-pink-600 text-white px-3 py-1.5 rounded-md text-xs"
+                                        >
+                                            Remove
+                                        </button>
 
                                     </div>
 
-                                    <div className="flex-1 flex flex-col justify-between min-h-[150px]">
+                                    <div className="flex-1">
 
-                                        <h2 className="text-sm lg:text-xl font-semibold text-gray-800 leading-relaxed">
+                                        <h2 className="text-sm font-semibold text-gray-800">
                                             {item?.productId?.productName}
                                         </h2>
 
@@ -207,13 +155,13 @@ function Cart() {
                         ))}
                     </div>
 
-                    <div className="lg:col-span-4 bg-white rounded-2xl shadow-lg p-7 h-fit sticky top-24 border border-pink-100">
+                    <div className="bg-white rounded-xl shadow-sm p-5 h-fit sticky top-20">
 
-                        <h2 className="text-2xl font-bold text-gray-800 border-b pb-4">
+                        <h2 className="text-lg font-bold text-gray-800 border-b pb-3">
                             Order Summary
                         </h2>
 
-                        <div className="space-y-4 mt-6 text-base">
+                        <div className="space-y-3 mt-4 text-sm">
 
                             <div className="flex justify-between">
                                 <span className="text-gray-600">
@@ -245,12 +193,12 @@ function Cart() {
                                 </span>
                             </div>
 
-                            <div className="border-t pt-5 flex justify-between">
+                            <div className="border-t pt-3 flex justify-between">
                                 <span className="font-bold text-gray-800">
                                     Total
                                 </span>
 
-                                <span className="font-bold text-pink-600 text-2xl">
+                                <span className="font-bold text-pink-600 text-lg">
                                     ₹{total}
                                 </span>
                             </div>
@@ -258,7 +206,7 @@ function Cart() {
 
                         <button
                             onClick={() => navigate('/address')}
-                            className="w-full mt-7 bg-pink-500 hover:bg-pink-600 text-white py-3 rounded-xl text-base font-semibold cursor-pointer transition-all duration-300">
+                            className="w-full mt-5 bg-pink-500 hover:bg-pink-600 text-white py-2.5 rounded-lg text-sm font-medium cursor-pointer transition">
                             Place Order
                         </button>
 
