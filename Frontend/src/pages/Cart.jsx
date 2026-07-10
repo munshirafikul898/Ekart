@@ -12,64 +12,64 @@ function Cart() {
     const tax = Math.floor(subtotal * 0.05);
     const shipping = subtotal > 299 ? 0 : 49;
     const total = subtotal + tax + shipping;
-    const accessToken=localStorage.getItem("accessToken");
-    const dispatch=useDispatch();
-    const navigate=useNavigate();
+    const accessToken = localStorage.getItem("accessToken");
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const handleUpdateQuantity= async (productId,type)=>{
+    const handleUpdateQuantity = async (productId, type) => {
         try {
-            const res=await axios.put("https://ekart-9pu9.onrender.com/api/v1/cart/update",{productId,type},{
-                headers:{
+            const res = await axios.put("https://ekart-9pu9.onrender.com/api/v1/cart/update", { productId, type }, {
+                headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
             })
-            if(res.data.success){
+            if (res.data.success) {
                 dispatch(setCart(res.data.cart));
             }
         } catch (error) {
             console.log(error);
-            
+
         }
     }
 
-    const handleRemove= async (productId)=>{
+    const handleRemove = async (productId) => {
         try {
-            const res=await axios.delete("https://ekart-9pu9.onrender.com/api/v1/cart/remove",{
+            const res = await axios.delete("https://ekart-9pu9.onrender.com/api/v1/cart/remove", {
 
-                headers:{
+                headers: {
                     Authorization: `Bearer ${accessToken}`
                 },
-                data:{productId}
+                data: { productId }
             })
-            if((await res).data.success){
+            if ((await res).data.success) {
                 dispatch(setCart((await res).data.cart));
                 toast.success("Product Remove from your Cart")
             }
         } catch (error) {
             console.log(error);
-            
+
         }
     }
 
-    const loadCart=async ()=>{
+    const loadCart = async () => {
         try {
-            const res=await axios.get("https://ekart-9pu9.onrender.com/api/v1/cart",{
-                headers:{
+            const res = await axios.get("https://ekart-9pu9.onrender.com/api/v1/cart", {
+                headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
             })
-            if(res.data.success){
+            if (res.data.success) {
                 dispatch(setCart(res.data.cart))
             }
         } catch (error) {
             console.log(error);
-            
+
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         loadCart();
-    },[dispatch]);
+    }, [dispatch]);
 
     return (
         <div className="min-h-screen bg-pink-50 p-4">
@@ -86,12 +86,12 @@ function Cart() {
                         {cart.items.map((item) => (
                             <div
                                 key={item._id}
-                                className="bg-white rounded-xl shadow-sm p-4 flex gap-4 relative"
+                                className="bg-white rounded-xl shadow-sm p-4 flex flex-col sm:flex-row gap-4 relative"
                             >
                                 <img
                                     src={item?.productId?.productImg?.[0]?.url}
                                     alt=""
-                                    className="w-32 h-32 object-contain bg-white rounded-lg border p-2"
+                                    className="w-24 h-24 sm:w-32 sm:h-32 object-contain bg-white rounded-lg border p-2"
                                 />
 
                                 <div className="flex-1">
@@ -101,7 +101,7 @@ function Cart() {
                                     </h2>
 
                                     <p className="text-pink-600 font-bold text-sm mt-2">
-                                        ₹{(item?.price)*(item?.quantity)}
+                                        ₹{(item?.price) * (item?.quantity)}
                                     </p>
 
                                     <div className="flex items-center gap-3 mt-3">
@@ -112,7 +112,7 @@ function Cart() {
 
                                         <div className="flex items-center gap-2 bg-gray-100 px-2 py-1 rounded-full">
 
-                                            <button onClick={()=>handleUpdateQuantity(item.productId._id,'decrease')} className="w-6 h-6 flex items-center justify-center rounded-full bg-white shadow text-pink-500 font-bold hover:bg-pink-500 hover:text-white transition cursor-pointer">
+                                            <button onClick={() => handleUpdateQuantity(item.productId._id, 'decrease')} className="w-6 h-6 flex items-center justify-center rounded-full bg-white shadow text-pink-500 font-bold hover:bg-pink-500 hover:text-white transition cursor-pointer">
                                                 -
                                             </button>
 
@@ -120,7 +120,7 @@ function Cart() {
                                                 {item?.quantity}
                                             </span>
 
-                                            <button  onClick={()=>handleUpdateQuantity(item.productId._id,'increase')} className="w-6 h-6 flex items-center justify-center rounded-full bg-white shadow text-pink-500 font-bold hover:bg-pink-500 hover:text-white transition cursor-pointer">
+                                            <button onClick={() => handleUpdateQuantity(item.productId._id, 'increase')} className="w-6 h-6 flex items-center justify-center rounded-full bg-white shadow text-pink-500 font-bold hover:bg-pink-500 hover:text-white transition cursor-pointer">
                                                 +
                                             </button>
 
@@ -128,7 +128,10 @@ function Cart() {
                                     </div>
                                 </div>
 
-                                <button onClick={()=>handleRemove(item.productId._id)} className="absolute bottom-4 right-4 bg-pink-500 hover:bg-pink-600 text-white px-3 py-1.5 rounded-md text-xs cursor-pointer">
+                                <button
+                                    onClick={() => handleRemove(item.productId._id)}
+                                    className="self-start sm:absolute sm:bottom-4 sm:right-4 bg-pink-500 hover:bg-pink-600 text-white px-3 py-1.5 rounded-md text-xs cursor-pointer"
+                                >
                                     Remove
                                 </button>
                             </div>
@@ -185,8 +188,8 @@ function Cart() {
                         </div>
 
                         <button
-                        onClick={()=>navigate('/address')}
-                         className="w-full mt-5 bg-pink-500 hover:bg-pink-600 text-white py-2.5 rounded-lg text-sm font-medium cursor-pointer transition">
+                            onClick={() => navigate('/address')}
+                            className="w-full mt-5 bg-pink-500 hover:bg-pink-600 text-white py-2.5 rounded-lg text-sm font-medium cursor-pointer transition">
                             Place Order
                         </button>
 
