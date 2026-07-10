@@ -86,54 +86,62 @@ function Cart() {
                         {cart.items.map((item) => (
                             <div
                                 key={item._id}
-                                className="bg-white rounded-xl shadow-sm p-4 flex flex-row gap-4 relative"
+                                className="bg-white rounded-xl shadow-sm p-4"
                             >
-                                <img
-                                    src={item?.productId?.productImg?.[0]?.url}
-                                    alt=""
-                                    className="w-24 h-24 object-contain bg-white rounded-lg border p-2 flex-shrink-0"
-                                />
+                                <div className="flex gap-4">
 
-                               <div className="flex-1 min-w-0">
+                                    <div className="flex flex-col items-center w-28 sm:w-32">
 
-                                    <h2 className="text-xs font-medium text-gray-800 leading-5 w-full">
-                                        {item?.productId?.productName}
-                                    </h2>
+                                        <img
+                                            src={item?.productId?.productImg?.[0]?.url}
+                                            alt=""
+                                            className="w-24 h-24 sm:w-32 sm:h-32 object-contain bg-white rounded-lg border p-2"
+                                        />
 
-                                    <p className="text-pink-600 font-bold text-sm mt-2">
-                                        ₹{(item?.price) * (item?.quantity)}
-                                    </p>
-
-                                    <div className="flex items-center gap-3 mt-3">
-
-                                        <p className="text-sm font-medium text-gray-600">
-                                            Quantity:
+                                        <p className="text-pink-600 font-bold text-sm mt-2">
+                                            ₹{item?.price * item?.quantity}
                                         </p>
 
-                                        <div className="flex items-center gap-2 bg-gray-100 px-2 py-1 rounded-full">
+                                        <div className="flex items-center gap-2 mt-2">
 
-                                            <button onClick={() => handleUpdateQuantity(item.productId._id, 'decrease')} className="w-6 h-6 flex items-center justify-center rounded-full bg-white shadow text-pink-500 font-bold hover:bg-pink-500 hover:text-white transition cursor-pointer">
+                                            <button
+                                                onClick={() => handleUpdateQuantity(item.productId._id, "decrease")}
+                                                className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-100 text-pink-500 font-bold"
+                                            >
                                                 -
                                             </button>
 
-                                            <span className="text-sm font-semibold text-gray-700">
-                                                {item?.quantity}
+                                            <span className="text-sm font-semibold">
+                                                {item.quantity}
                                             </span>
 
-                                            <button onClick={() => handleUpdateQuantity(item.productId._id, 'increase')} className="w-6 h-6 flex items-center justify-center rounded-full bg-white shadow text-pink-500 font-bold hover:bg-pink-500 hover:text-white transition cursor-pointer">
+                                            <button
+                                                onClick={() => handleUpdateQuantity(item.productId._id, "increase")}
+                                                className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-100 text-pink-500 font-bold"
+                                            >
                                                 +
                                             </button>
 
                                         </div>
-                                    </div>
-                                </div>
 
-                                <button
-                                    onClick={() => handleRemove(item.productId._id)}
-                                    className="self-start sm:absolute sm:bottom-4 sm:right-4 bg-pink-500 hover:bg-pink-600 text-white px-3 py-1.5 rounded-md text-xs cursor-pointer"
-                                >
-                                    Remove
-                                </button>
+                                        <button
+                                            onClick={() => handleRemove(item.productId._id)}
+                                            className="mt-2 bg-pink-500 hover:bg-pink-600 text-white px-3 py-1.5 rounded-md text-xs"
+                                        >
+                                            Remove
+                                        </button>
+
+                                    </div>
+
+                                    <div className="flex-1">
+
+                                        <h2 className="text-sm font-semibold text-gray-800">
+                                            {item?.productId?.productName}
+                                        </h2>
+
+                                    </div>
+
+                                </div>
                             </div>
                         ))}
                     </div>
