@@ -47,12 +47,14 @@ function Product() {
 
         let filtered = [...allProduct];
 
-        if (search.trim() !== "") {
+        const searchText = search.trim().toLowerCase();
+
+        if (searchText !== "") {
             filtered = filtered.filter(
                 (p) =>
-                    p.productName?.toLowerCase().includes(search.toLowerCase()) ||
-                    p.category?.toLowerCase().includes(search.toLowerCase()) ||
-                    p.brand?.toLowerCase().includes(search.toLowerCase())
+                    p.productName?.trim().toLowerCase().includes(searchText) ||
+                    p.category?.trim().toLowerCase().includes(searchText) ||
+                    p.brand?.trim().toLowerCase().includes(searchText)
             );
         }
 
