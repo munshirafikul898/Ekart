@@ -12,6 +12,13 @@ export const verifyEmail = async (email, token) => {
                 pass: process.env.MAIL_PASS
             }
         });
+        transporter.verify((error, success) => {
+            if (error) {
+                console.log("SMTP Error:", error);
+            } else {
+                console.log("SMTP Server Ready");
+            }
+        });
 
         const mailConfigurations = {
             from: process.env.MAIL_USER,
