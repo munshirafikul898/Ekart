@@ -146,9 +146,9 @@ function Cart() {
                                         <div className="hidden lg:block mt-5">
                                             <div className="flex-1 flex flex-col min-h-[150px]">
 
-                                                <h2 className="text-sm lg:text-xl font-semibold text-gray-800 leading-relaxed">
+                                                {/* <h2 className="text-sm lg:text-xl font-semibold text-gray-800 leading-relaxed">
                                                     {item?.productId?.productName}
-                                                </h2>
+                                                </h2> */}
 
 
                                                 <div className="hidden lg:block mt-8">
