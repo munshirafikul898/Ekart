@@ -12,22 +12,34 @@ function ProductCard({ product }) {
     const accessToken=localStorage.getItem('accessToken');
     const dispatch=useDispatch();
 
-    const addToCart=async (productId)=>{
-        try {
-            const res=await axios.post("https://ekart-9pu9.onrender.com/api/v1/cart/add",{productId},{
-                headers:{
+    const addToCart = async (productId) => {
+
+    if (!accessToken) {
+        toast.error("Please login first");
+        navigate("/login");
+        return;
+    }
+
+    try {
+        const res = await axios.post(
+            "https://ekart-9pu9.onrender.com/api/v1/cart/add",
+            { productId },
+            {
+                headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
-            })
-            if(res.data.success){
-                toast.success('Product add to Cart');
-                dispatch(setCart(res.data.cart));
             }
-        } catch (error) {
-            console.log(error.response?.data);
-            
+        );
+
+        if (res.data.success) {
+            toast.success("Product added to Cart");
+            dispatch(setCart(res.data.cart));
         }
+
+    } catch (error) {
+        console.log(error.response?.data);
     }
+}
 
     return (
         <div className="group bg-white rounded-lg overflow-hidden border border-pink-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 w-full max-w-[190px]">
