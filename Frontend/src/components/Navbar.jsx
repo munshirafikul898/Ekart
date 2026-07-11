@@ -1,4 +1,4 @@
-import { ShoppingCart, Menu, X } from "lucide-react";
+import { ShoppingCart, Menu, X, Loader2 } from "lucide-react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import axios from "axios";
@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { setUser } from "../redux/userSlice";
-import {clearCheckoutData } from "../redux/productSlice";
+import { clearCheckoutData } from "../redux/productSlice";
 
 function Navbar() {
     const { user } = useSelector(store => store.user);
@@ -17,8 +17,10 @@ function Navbar() {
     const navigate = useNavigate();
     const admin = user?.role === "admin";
     const [open, setOpen] = useState(false);
+    const [loggingOut, setLoggingOut] = useState(false);
 
     const logoutHandler = async () => {
+        setLoggingOut(true);
         try {
             const res = await axios.post(
                 "https://ekart-9pu9.onrender.com/api/v1/user/logout",
@@ -35,9 +37,6 @@ function Navbar() {
 
                 dispatch(setUser(null));
                 dispatch(clearCheckoutData());
-
-                dispatch(clearCheckoutData());
-
                 toast.success(res.data.message);
 
                 setOpen(false);
@@ -47,6 +46,9 @@ function Navbar() {
         } catch (error) {
             console.log(error.response?.data);
             toast.error(error.response?.data?.message || "Logout failed");
+        }
+        finally {
+            setLoggingOut(false);
         }
     };
 
@@ -118,10 +120,18 @@ function Navbar() {
                         </Button>
                     ) : (
                         <Button
-                            onClick={() => navigate("/login")}
+                            onClick={logoutHandler}
+                            disabled={loggingOut}
                             className="bg-pink-500 text-white cursor-pointer hover:bg-pink-600"
                         >
-                            Login
+                            {loggingOut ? (
+                                <>
+                                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                    Logging out...
+                                </>
+                            ) : (
+                                "Logout"
+                            )}
                         </Button>
                     )}
                 </nav>
@@ -176,9 +186,17 @@ function Navbar() {
                         {user ? (
                             <Button
                                 onClick={logoutHandler}
+                                disabled={loggingOut}
                                 className="bg-pink-500 text-white hover:bg-pink-600"
                             >
-                                Logout
+                                {loggingOut ? (
+                                    <>
+                                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                        Logging out...
+                                    </>
+                                ) : (
+                                    "Logout"
+                                )}
                             </Button>
                         ) : (
                             <Button
