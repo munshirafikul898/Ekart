@@ -43,7 +43,7 @@ function ResetPassword() {
         try {
             setLoading(true);
 
-            const { data } = await axios.put(
+            const { data } = await axios.post(
                 `https://ekart-9pu9.onrender.com/api/v1/user/change-password/${email}`,
                 formData
             );
