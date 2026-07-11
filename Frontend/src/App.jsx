@@ -20,6 +20,7 @@ import AddressForm from "./pages/AddressForm";
 import OrderSuccess from "./pages/OrderSuccess";
 import ShowUserOrders from "./pages/admin/ShowUserOrders";
 import AdminSales from "./pages/admin/AdminSales";
+import ForgotPassword from "./pages/ForgotPassword";
 
 
 function App(){
@@ -48,6 +49,7 @@ function App(){
         <Route path="/signup" element={<Signup/>} />
         <Route path="/verify" element={<Verify/>} />
         <Route path="/verify/:token" element={<VerifyEmail/>} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         
       </Routes>
     </>
