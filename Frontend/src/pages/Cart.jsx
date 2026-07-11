@@ -97,103 +97,56 @@ function Cart() {
                                 key={item._id}
                                 className="bg-white rounded-xl shadow-sm p-4"
                             >
-                                <div className="flex flex-col lg:flex-row gap-6">
+                                <div className="flex gap-4">
 
-                                    <div className="flex flex-col items-center w-full lg:w-52">
+                                    <div className="flex flex-col items-center w-28 sm:w-32">
 
                                         <img
                                             src={item?.productId?.productImg?.[0]?.url}
                                             alt=""
-                                            className="w-24 h-24 sm:w-32 sm:h-32 lg:w-40 lg:h-40 object-contain bg-white rounded-lg border p-2"
+                                            className="w-24 h-24 sm:w-32 sm:h-32 object-contain bg-white rounded-lg border p-2"
                                         />
 
-                                        <div className="lg:hidden">
+                                        <p className="text-pink-600 font-bold text-sm mt-2">
+                                            ₹{item?.price * item?.quantity}
+                                        </p>
 
-                                            <p className="text-pink-600 font-bold text-sm mt-2">
-                                                ₹{item?.price * item?.quantity}
-                                            </p>
-
-                                            <div className="flex items-center gap-2 mt-2">
-
-                                                <button
-                                                    onClick={() => handleUpdateQuantity(item.productId._id, "decrease")}
-                                                    className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-100 text-pink-500 font-bold"
-                                                >
-                                                    -
-                                                </button>
-
-                                                <span className="text-sm font-semibold">
-                                                    {item.quantity}
-                                                </span>
-
-                                                <button
-                                                    onClick={() => handleUpdateQuantity(item.productId._id, "increase")}
-                                                    className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-100 text-pink-500 font-bold"
-                                                >
-                                                    +
-                                                </button>
-
-                                            </div>
+                                        <div className="flex items-center gap-2 mt-2">
 
                                             <button
-                                                onClick={() => handleRemove(item.productId._id)}
-                                                className="mt-2 bg-pink-500 hover:bg-pink-600 text-white px-3 py-1.5 rounded-md text-xs"
+                                                onClick={() => handleUpdateQuantity(item.productId._id, "decrease")}
+                                                className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-100 text-pink-500 font-bold"
                                             >
-                                                Remove
+                                                -
                                             </button>
+
+                                            <span className="text-sm font-semibold">
+                                                {item.quantity}
+                                            </span>
+
+                                            <button
+                                                onClick={() => handleUpdateQuantity(item.productId._id, "increase")}
+                                                className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-100 text-pink-500 font-bold"
+                                            >
+                                                +
+                                            </button>
+
                                         </div>
+
+                                        <button
+                                            onClick={() => handleRemove(item.productId._id)}
+                                            className="mt-2 bg-pink-500 hover:bg-pink-600 text-white px-3 py-1.5 rounded-md text-xs"
+                                        >
+                                            Remove
+                                        </button>
 
                                     </div>
 
-                                    <div className="flex-1 flex flex-col justify-center gap-6">
+                                    <div className="flex-1">
 
-                                        <div>
-                                            <h2 className="text-sm lg:text-xl font-semibold text-gray-800">
-                                                {item?.productId?.productName}
-                                            </h2>
-                                        </div>
-
-
-                                        <div className="hidden lg:flex flex-col items-start gap-4 mt-6">
-
-                                            <p className="text-2xl font-bold text-pink-600">
-                                                ₹{item.price * item.quantity}
-                                            </p>
-
-                                            <div className="flex items-center gap-3">
-
-                                                <button
-                                                    onClick={() =>
-                                                        handleUpdateQuantity(item.productId._id, "decrease")
-                                                    }
-                                                    className="w-10 h-10 rounded-full bg-gray-100 text-pink-500 text-xl font-bold hover:bg-pink-100"
-                                                >
-                                                    -
-                                                </button>
-
-                                                <span className="text-lg font-semibold">
-                                                    {item.quantity}
-                                                </span>
-
-                                                <button
-                                                    onClick={() =>
-                                                        handleUpdateQuantity(item.productId._id, "increase")
-                                                    }
-                                                    className="w-10 h-10 rounded-full bg-gray-100 text-pink-500 text-xl font-bold hover:bg-pink-100"
-                                                >
-                                                    +
-                                                </button>
-
-                                            </div>
-
-                                            <button
-                                                onClick={() => handleRemove(item.productId._id)}
-                                                className="bg-pink-500 hover:bg-pink-600 text-white px-6 py-2 rounded-lg"
-                                            >
-                                                Remove
-                                            </button>
-
-                                        </div>
+                                        <h2 className="text-sm font-semibold text-gray-800">
+                                            {item?.productId?.productName}
+                                        </h2>
 
                                     </div>
 
