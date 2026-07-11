@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { setUser } from "../redux/userSlice";
-import { setCart } from "../redux/productSlice";
+import {clearCheckoutData } from "../redux/productSlice";
 
 function Navbar() {
     const { user } = useSelector(store => store.user);
@@ -34,13 +34,9 @@ function Navbar() {
                 localStorage.removeItem("accessToken");
 
                 dispatch(setUser(null));
+                dispatch(clearCheckoutData());
 
-                dispatch(
-                    setCart({
-                        items: [],
-                        totalPrice: 0,
-                    })
-                );
+                dispatch(clearCheckoutData());
 
                 toast.success(res.data.message);
 
