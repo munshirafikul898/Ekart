@@ -1,6 +1,6 @@
-import { Outlet, Route,Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import  Home  from "./pages/Home";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Verify from "./pages/Verify";
@@ -21,36 +21,40 @@ import OrderSuccess from "./pages/OrderSuccess";
 import ShowUserOrders from "./pages/admin/ShowUserOrders";
 import AdminSales from "./pages/admin/AdminSales";
 import ForgotPassword from "./pages/ForgotPassword";
+import VerifyOtp from "./pages/VerifyOtp";
+import ResetPassword from "./pages/ResetPassword";
 
 
-function App(){
-  return(
+function App() {
+  return (
     <>
       <Routes>
-        <Route element={<Navbar/>} >
-        <Route path="/" element={<Home/>} />
-        <Route path="/profile/:userId" element={<ProtectedRoute><Profile/></ProtectedRoute>} />
-        <Route path="/products" element={<Product/>} />
-        <Route path="/products/:id" element={<SingleProduct/>} />
-        <Route path="/cart" element={<ProtectedRoute><Cart/></ProtectedRoute>} />
-        <Route path="/address" element={<ProtectedRoute><AddressForm/></ProtectedRoute>} />
-        <Route path="/order-success" element={<ProtectedRoute><OrderSuccess/></ProtectedRoute>} />
-        <Route element={<Sidebar/>} >
-        <Route path="/dashboard/sales" element={<ProtectedRoute adminOnly={true}><AdminSales/></ProtectedRoute>} />
-        <Route path="/dashboard/add-product" element={<ProtectedRoute adminOnly={true}><AddProduct/></ProtectedRoute>} />
-        <Route path="/dashboard/users" element={<ProtectedRoute adminOnly={true}><AdminUsers/></ProtectedRoute>} />
-        <Route path="/dashboard/users/:userId" element={<ProtectedRoute adminOnly={true}><UserInfo/></ProtectedRoute>} />
-        <Route path="/dashboard/users/orders/:userId" element={<ProtectedRoute adminOnly={true}><ShowUserOrders/></ProtectedRoute>} />
-        <Route path="/dashboard/orders" element={<ProtectedRoute adminOnly={true}><AdminOrders/></ProtectedRoute>} />
-        <Route path="/dashboard/products" element={<ProtectedRoute adminOnly={true}><AdminProduct/></ProtectedRoute>} />
+        <Route element={<Navbar />} >
+          <Route path="/" element={<Home />} />
+          <Route path="/profile/:userId" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path="/products" element={<Product />} />
+          <Route path="/products/:id" element={<SingleProduct />} />
+          <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+          <Route path="/address" element={<ProtectedRoute><AddressForm /></ProtectedRoute>} />
+          <Route path="/order-success" element={<ProtectedRoute><OrderSuccess /></ProtectedRoute>} />
+          <Route element={<Sidebar />} >
+            <Route path="/dashboard/sales" element={<ProtectedRoute adminOnly={true}><AdminSales /></ProtectedRoute>} />
+            <Route path="/dashboard/add-product" element={<ProtectedRoute adminOnly={true}><AddProduct /></ProtectedRoute>} />
+            <Route path="/dashboard/users" element={<ProtectedRoute adminOnly={true}><AdminUsers /></ProtectedRoute>} />
+            <Route path="/dashboard/users/:userId" element={<ProtectedRoute adminOnly={true}><UserInfo /></ProtectedRoute>} />
+            <Route path="/dashboard/users/orders/:userId" element={<ProtectedRoute adminOnly={true}><ShowUserOrders /></ProtectedRoute>} />
+            <Route path="/dashboard/orders" element={<ProtectedRoute adminOnly={true}><AdminOrders /></ProtectedRoute>} />
+            <Route path="/dashboard/products" element={<ProtectedRoute adminOnly={true}><AdminProduct /></ProtectedRoute>} />
+          </Route>
         </Route>
-        </Route>
-        <Route path="/login" element={<Login/>} />
-        <Route path="/signup" element={<Signup/>} />
-        <Route path="/verify" element={<Verify/>} />
-        <Route path="/verify/:token" element={<VerifyEmail/>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/verify" element={<Verify />} />
+        <Route path="/verify/:token" element={<VerifyEmail />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        
+        <Route path="/verify-otp/:email" element={<VerifyOtp />} />
+        <Route path="/reset-password/:email" element={<ResetPassword />} />
+
       </Routes>
     </>
   )

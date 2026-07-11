@@ -1,44 +1,45 @@
 import { useState } from "react";
 import axios from "axios";
-import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-function ForgotPassword() {
-    const [loading, setLoading] = useState(false);
-    const [email, setEmail] = useState("");
+function VerifyOtp() {
+    const { email } = useParams();
     const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+    const [otp, setOtp] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const submitHandler = async (e) => {
         e.preventDefault();
 
         try {
             setLoading(true);
 
             const { data } = await axios.post(
-                "https://ekart-9pu9.onrender.com/api/v1/user/forgot-password",
-                { email }
+                `https://ekart-9pu9.onrender.com/api/v1/user/verify-otp/${email}`,
+                { otp }
             );
 
             if (data.success) {
                 toast.success(data.message);
-                navigate(`/verify-otp/${email}`);
+                navigate(`/reset-password/${email}`);
             }
         } catch (error) {
             toast.error(
-                error.response?.data?.message || "Something went wrong"
+                error.response?.data?.message || "OTP verification failed"
             );
         } finally {
             setLoading(false);
@@ -50,28 +51,29 @@ function ForgotPassword() {
             <Card className="w-full max-w-md shadow-xl">
                 <CardHeader className="text-center">
                     <CardTitle className="text-2xl">
-                        Forgot Password
+                        Verify OTP
                     </CardTitle>
 
                     <CardDescription>
-                        Enter your registered email to receive an OTP.
+                        Enter the OTP sent to your email.
                     </CardDescription>
                 </CardHeader>
 
                 <CardContent>
                     <form
-                        onSubmit={handleSubmit}
+                        onSubmit={submitHandler}
                         className="space-y-5"
                     >
                         <div className="space-y-2">
-                            <Label>Email</Label>
+                            <Label>OTP</Label>
 
                             <Input
-                                type="email"
-                                placeholder="Enter your email"
-                                value={email}
+                                type="text"
+                                placeholder="Enter 6-digit OTP"
+                                maxLength={6}
+                                value={otp}
                                 onChange={(e) =>
-                                    setEmail(e.target.value)
+                                    setOtp(e.target.value)
                                 }
                                 required
                             />
@@ -85,26 +87,17 @@ function ForgotPassword() {
                             {loading ? (
                                 <>
                                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                    Sending OTP...
+                                    Verifying...
                                 </>
                             ) : (
-                                "Send OTP"
+                                "Verify OTP"
                             )}
                         </Button>
                     </form>
                 </CardContent>
-
-                <CardFooter className="justify-center">
-                    <Link
-                        to="/login"
-                        className="text-sm text-pink-500 hover:underline"
-                    >
-                        Back to Login
-                    </Link>
-                </CardFooter>
             </Card>
         </div>
     );
 }
 
-export default ForgotPassword;
+export default VerifyOtp;
