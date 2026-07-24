@@ -116,7 +116,7 @@ function Product() {
 
                     <div className="flex-1">
 
-                        <div className="flex justify-start sm:justify-end mb-6">
+                        <div className="hidden lg:flex justify-end mb-6">
                             <Select
                                 value={sortOrder}
                                 onValueChange={setSortOrder}

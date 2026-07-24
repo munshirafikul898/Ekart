@@ -63,8 +63,13 @@ function AddressForm() {
             return toast.error("Please fill all fields");
         }
 
-        dispatch(addAddress(formData));
-        dispatch(setSelectedAddress(formData));
+        const newAddress = {
+            ...formData,
+            id: crypto.randomUUID(),
+        };
+
+        dispatch(addAddress(newAddress));
+        dispatch(setSelectedAddress(newAddress));
 
         setFormData({
             fullName: "",
@@ -86,7 +91,7 @@ function AddressForm() {
         const addressToDelete = addresses[index];
 
         if (
-            selectedAddress?.email === addressToDelete.email
+            selectedAddress?.id === addressToDelete.id
         ) {
             dispatch(setSelectedAddress(null));
         }
@@ -140,7 +145,16 @@ function AddressForm() {
                         })
                         if (verifyRes.data.success) {
                             toast.success("✅ Payment Successfull");
-                            dispatch(setCart({ items: [], totalPrice: 0 }))
+
+                            dispatch(
+                                setCart({
+                                    items: [],
+                                    totalPrice: 0
+                                })
+                            );
+
+                            dispatch(setSelectedAddress(null));
+
                             navigate("/order-success");
                         } else {
                             toast.error("❌ Payment verification Failed")
@@ -316,12 +330,12 @@ function AddressForm() {
                                 <div className="space-y-4">
                                     {addresses.map((address, index) => (
                                         <div
-                                            key={index}
+                                            key={address.id}
                                             onClick={() =>
                                                 dispatch(setSelectedAddress(address))
                                             }
                                             className={`border rounded-lg p-4 cursor-pointer transition relative
-                    ${selectedAddress?.email === address.email
+                    ${selectedAddress?.id === address.id
                                                     ? "border-pink-500 bg-pink-50"
                                                     : "hover:border-pink-300"
                                                 }`}
@@ -358,7 +372,7 @@ function AddressForm() {
                                                 Phone: {address.phone}
                                             </p>
 
-                                            {selectedAddress?.email === address.email && (
+                                            {selectedAddress?.id === address.id && (
                                                 <span className="inline-block mt-2 text-xs font-medium text-green-600">
                                                     ✓ Selected Address
                                                 </span>
