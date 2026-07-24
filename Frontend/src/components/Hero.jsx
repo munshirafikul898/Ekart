@@ -1,6 +1,8 @@
 import { Button } from "../components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 function Hero() {
+    const navigate= useNavigate();
     return (
         <section className="w-full min-h-[450px] bg-gradient-to-r from-pink-500 to-purple-500 flex flex-col-reverse md:flex-row items-center justify-between px-6 sm:px-8 md:px-10 py-10 md:py-0 gap-10">
             <div className="w-full md:w-1/2 text-center md:text-left">
@@ -17,11 +19,11 @@ function Hero() {
 
                 <div className="flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-4 mt-6">
 
-                    <Button className="bg-white text-pink-600 hover:bg-pink-200 hover:text-black rounded-md px-5 py-4 cursor-pointer w-full sm:w-auto">
+                    <Button onClick={()=>navigate("/products")} className="bg-white text-pink-600 hover:bg-pink-200 hover:text-black rounded-md px-5 py-4 cursor-pointer w-full sm:w-auto">
                         Shop Now
                     </Button>
 
-                    <Button className="bg-white text-pink-600 hover:bg-pink-200 hover:text-black rounded-md px-5 py-4 cursor-pointer w-full sm:w-auto">
+                    <Button onClick={()=>navigate("/products")} className="bg-white text-pink-600 hover:bg-pink-200 hover:text-black rounded-md px-5 py-4 cursor-pointer w-full sm:w-auto">
                         Explore
                     </Button>
 
