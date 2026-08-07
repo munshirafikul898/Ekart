@@ -9,7 +9,7 @@ router.post("/register",register);
 router.post("/verify",verify);
 router.post("/re-verify",reVerify);
 router.post("/login",login);
-router.post("/logout",isAuthencitated,logout);
+router.post("/logout",logout);
 router.post("/forgot-password",forgotPassword);
 router.post("/verify-otp/:email",verifyOtp);
 router.post("/change-password/:email",changePassword);

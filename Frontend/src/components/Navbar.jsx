@@ -1,5 +1,5 @@
 import { ShoppingCart, Menu, X, Loader2 } from "lucide-react";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import {Link,NavLink,Outlet, useNavigate} from "react-router-dom";
 import { Button } from "../components/ui/button";
 import axios from "axios";
 import { toast } from "sonner";
@@ -9,53 +9,75 @@ import { setUser } from "../redux/userSlice";
 import { clearCheckoutData } from "../redux/productSlice";
 
 function Navbar() {
-    const { user } = useSelector(store => store.user);
-    const { cart } = useSelector(store => store.product);
+    const { user } = useSelector((store) => store.user);
+    const { cart } = useSelector((store) => store.product);
 
-    const accessToken = localStorage.getItem("accessToken");
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const admin = user?.role === "admin";
+
     const [open, setOpen] = useState(false);
     const [loggingOut, setLoggingOut] = useState(false);
 
     const logoutHandler = async () => {
         setLoggingOut(true);
+
         try {
+            const refreshToken = localStorage.getItem("refreshToken");
+
             const res = await axios.post(
                 "https://ekart-9pu9.onrender.com/api/v1/user/logout",
-                {},
                 {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`
-                    }
+                    refreshToken
                 }
             );
 
             if (res.data.success) {
                 localStorage.removeItem("accessToken");
+                localStorage.removeItem("refreshToken");
 
                 dispatch(setUser(null));
                 dispatch(clearCheckoutData());
+
                 toast.success(res.data.message);
 
                 setOpen(false);
-
                 navigate("/login");
             }
         } catch (error) {
             console.log(error.response?.data);
-            toast.error(error.response?.data?.message || "Logout failed");
-        }
-        finally {
+
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("refreshToken");
+
+            dispatch(setUser(null));
+            dispatch(clearCheckoutData());
+
+            toast.error(
+                error.response?.data?.message || "Logout failed"
+            );
+
+            navigate("/login");
+        } finally {
             setLoggingOut(false);
         }
     };
 
+    const navLinkStyle = ({ isActive }) =>
+        `px-2 py-1 rounded-sm transition ${
+            isActive
+                ? "bg-pink-500 text-white"
+                : "hover:text-pink-500"
+        }`;
+
     return (
         <>
             <header className="w-full h-14 bg-white shadow-md px-4 sm:px-6 flex justify-between items-center fixed z-20">
-                <Link to="/" className="flex items-center gap-1">
+                <Link
+                    to="/"
+                    className="flex items-center gap-1"
+                >
                     <img
                         src="https://static.vecteezy.com/system/resources/previews/012/494/062/original/shopping-bag-icon-with-transparent-background-png.png"
                         alt="logo"
@@ -67,37 +89,38 @@ function Navbar() {
                     </h1>
                 </Link>
 
-                <nav className="hidden md:flex items-center gap-6 font-medium">
-                    <Link
+                <nav className="hidden md:flex items-center gap-3 font-medium">
+                    <NavLink
                         to="/"
-                        className="hover:text-pink-500 transition"
+                        end
+                        className={navLinkStyle}
                     >
                         Home
-                    </Link>
+                    </NavLink>
 
-                    <Link
+                    <NavLink
                         to="/products"
-                        className="hover:text-pink-500 transition"
+                        className={navLinkStyle}
                     >
                         Products
-                    </Link>
+                    </NavLink>
 
                     {user && (
-                        <Link
+                        <NavLink
                             to={`/profile/${user._id}`}
-                            className="hover:text-pink-500 transition"
+                            className={navLinkStyle}
                         >
                             Hello, {user.firstName}
-                        </Link>
+                        </NavLink>
                     )}
 
                     {admin && (
-                        <Link
+                        <NavLink
                             to="/dashboard/sales"
-                            className="hover:text-pink-500 transition"
+                            className={navLinkStyle}
                         >
                             Dashboard
-                        </Link>
+                        </NavLink>
                     )}
 
                     <Link
@@ -114,13 +137,6 @@ function Navbar() {
                     {user ? (
                         <Button
                             onClick={logoutHandler}
-                            className="bg-pink-500 text-white cursor-pointer hover:bg-pink-600"
-                        >
-                            Logout
-                        </Button>
-                    ) : (
-                        <Button
-                            onClick={logoutHandler}
                             disabled={loggingOut}
                             className="bg-pink-500 text-white cursor-pointer hover:bg-pink-600"
                         >
@@ -132,6 +148,13 @@ function Navbar() {
                             ) : (
                                 "Logout"
                             )}
+                        </Button>
+                    ) : (
+                        <Button
+                            onClick={() => navigate("/login")}
+                            className="bg-pink-500 text-white cursor-pointer hover:bg-pink-600"
+                        >
+                            Login
                         </Button>
                     )}
                 </nav>
@@ -145,30 +168,41 @@ function Navbar() {
 
                 {open && (
                     <div className="absolute top-14 left-0 w-full bg-white shadow-md flex flex-col items-center gap-5 py-6 md:hidden">
-                        <Link to="/" onClick={() => setOpen(false)}>
+                        <NavLink
+                            to="/"
+                            end
+                            onClick={() => setOpen(false)}
+                            className={navLinkStyle}
+                        >
                             Home
-                        </Link>
+                        </NavLink>
 
-                        <Link to="/products" onClick={() => setOpen(false)}>
+                        <NavLink
+                            to="/products"
+                            onClick={() => setOpen(false)}
+                            className={navLinkStyle}
+                        >
                             Products
-                        </Link>
+                        </NavLink>
 
                         {user && (
-                            <Link
+                            <NavLink
                                 to={`/profile/${user._id}`}
                                 onClick={() => setOpen(false)}
+                                className={navLinkStyle}
                             >
                                 Hello, {user.firstName}
-                            </Link>
+                            </NavLink>
                         )}
 
                         {admin && (
-                            <Link
+                            <NavLink
                                 to="/dashboard/sales"
                                 onClick={() => setOpen(false)}
+                                className={navLinkStyle}
                             >
                                 Dashboard
-                            </Link>
+                            </NavLink>
                         )}
 
                         <Link

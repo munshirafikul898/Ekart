@@ -176,18 +176,38 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
     try {
-        const userId = req.id;
-        await Session.deleteMany({ userId: userId });
-        await User.findByIdAndUpdate(userId, { isLoggedIn: false });
+        const { refreshToken } = req.body;
+
+        if (!refreshToken) {
+            return res.status(400).json({
+                success: false,
+                message: "Refresh token is required"
+            });
+        }
+
+        const decoded = jwt.verify(
+            refreshToken,
+            process.env.SECRET_KEY
+        );
+
+        const userId = decoded.id;
+
+        await Session.deleteMany({ userId });
+
+        await User.findByIdAndUpdate(userId, {
+            isLoggedIn: false
+        });
+
         return res.status(200).json({
             success: true,
             message: "User logout successfully"
-        })
+        });
+
     } catch (error) {
-        return res.status(500).json({
+        return res.status(401).json({
             success: false,
-            message: error.message
-        })
+            message: "Invalid or expired refresh token"
+        });
     }
 }
 

@@ -39,51 +39,65 @@ function Login() {
         }));
     }
 
-    const submitHandler = async (e) => {
-        e.preventDefault();
+const submitHandler = async (e) => {
+    e.preventDefault();
 
-        try {
-            setLoading(true);
+    try {
+        setLoading(true);
 
-            const res = await axios.post(
-                "https://ekart-9pu9.onrender.com/api/v1/user/login",
-                formData,
+        const res = await axios.post(
+            "https://ekart-9pu9.onrender.com/api/v1/user/login",
+            formData,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+
+        if (res.data.success) {
+
+        
+            localStorage.setItem(
+                "accessToken",
+                res.data.accessToken
+            );
+
+            localStorage.setItem(
+                "refreshToken",
+                res.data.refreshToken
+            );
+
+
+            dispatch(setUser(res.data.user));
+
+            const cartRes = await axios.get(
+                "https://ekart-9pu9.onrender.com/api/v1/cart",
                 {
                     headers: {
-                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${res.data.accessToken}`,
                     },
                 }
             );
 
-            if (res.data.success) {
-                localStorage.setItem(
-                    "accessToken",
-                    res.data.accessToken
-                );
+            dispatch(setCart(cartRes.data.cart));
 
-                dispatch(setUser(res.data.user));
-
-                const cartRes = await axios.get(
-                    "https://ekart-9pu9.onrender.com/api/v1/cart",
-                    {
-                        headers: {
-                            Authorization: `Bearer ${res.data.accessToken}`,
-                        },
-                    }
-                );
-
-                dispatch(setCart(cartRes.data.cart));
-
-                toast.success(res.data.message);
-                navigate("/");
-            }
-        } catch (error) {
-            console.log(error);
-            toast.error(error.response?.data?.message || "Login failed");
-        } finally {
-            setLoading(false);
+            toast.success(res.data.message);
+            navigate("/");
         }
-    };
+
+    } catch (error) {
+        console.log(error);
+
+        toast.error(
+            error.response?.data?.message || "Login failed"
+        );
+
+    } finally {
+        setLoading(false);
+    }
+}
+
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-pink-100 px-4 py-8">

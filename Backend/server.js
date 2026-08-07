@@ -18,7 +18,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://ekart-rouge.vercel.app" // Replace if your Vercel URL changes
+      "https://ekart-rouge.vercel.app"
     ],
     credentials: true,
   })
